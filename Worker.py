@@ -297,8 +297,14 @@ async def on_member_join (member) : # When a new member join the server
         await send_Welcome_Image(member) # Send a welcome image on the default channel
 
         await send_Welcome(member)
+        
+        Traveler = discord.utils.get(member.server.roles, name = "Traveler") # Get the server role to add
 
-    except :    # If try failed
+        await DiscordClient.add_roles(member,Traveler)    # Add the role to the member who reacts
+
+    except Exception as e:    # If try failed
+        
+        print(e)
 
         pass
 
