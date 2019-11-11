@@ -589,7 +589,7 @@ async def on_message (message) :    # When a new message arrives
 
                         break
 
-                os.environ["MSG"] = Msg
+                os.environ["MSG"] = Params.split()
 
                 DiscordClient.IsRunning = False
 
