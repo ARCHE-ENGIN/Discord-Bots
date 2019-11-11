@@ -52,7 +52,7 @@ try :
 
     Channel = DiscordClient.get_channel(Infos[0][2:-1])
 
-    Msg = DiscordClient.get_message(Channel, Msg[1])
+    Msg = DiscordClient.get_message(Channel, Infos[1])
 
     DiscordClient.Msg_Watch = Msg
 
