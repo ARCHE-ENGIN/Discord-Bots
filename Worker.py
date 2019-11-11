@@ -276,7 +276,7 @@ async def on_ready () : # When bot starts
     
     print("\n>>> Status changed")
     
-    Server = DiscordClient.get_guild(591314616647417868)
+    Server = DiscordClient.get_server(591314616647417868)
 
     DiscordClient.IsRunning = True
 
