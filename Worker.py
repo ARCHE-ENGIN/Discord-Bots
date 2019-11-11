@@ -3,8 +3,6 @@
 
 # Importation of the modules
 
-print("\n>>> Loading modules")
-
 import os
 import discord
 import asyncio
@@ -129,7 +127,7 @@ async def send_Welcome (user) :
 
 #####################################################################################
 
-async def send_Welcome_Image (member) :
+async def send_Welcome_Image (member,channel = None) :
 
     try :
 
@@ -320,18 +318,12 @@ async def on_reaction (server) :
         except :
 
             await on_reaction(server)
-
-    else :
-
-        print("stopped")
-
+            
 #####################################################################################
 
 @DiscordClient.event    # Bot event
     
 async def on_message (message) :    # When a new message arrives
-
-    print("\n>>> New message arrived")
 
     if message.author == DiscordClient.user :   # If the author of the message is the bot
 
