@@ -64,9 +64,9 @@ try :
     
     print("\n>>> Message loaded")
 
-except :
+except Exception as e:
     
-    print("\n>>> No message loaded")
+    print("\n>>> No message loaded due to :",e)
 
     DiscordClient.Msg_Watch = None
 
