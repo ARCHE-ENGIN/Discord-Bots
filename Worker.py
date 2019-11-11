@@ -1,7 +1,10 @@
 # -*-coding = cp1252 -*-
 
+print("\n>>> Code starting")
 
 # Importation of the modules
+
+print("\n>>> Loading modules")
 
 import os
 import discord
@@ -15,6 +18,8 @@ import json
 from PIL import Image, ImageDraw, ImageOps, ImageFont
 from io import BytesIO
 
+print("\n>>> Modules loaded")
+
 TOKEN = os.environ["TOKEN"]
 
 DiscordClient = discord.Client()    # Creation of the discord client
@@ -23,15 +28,23 @@ DiscordClient = discord.Client()    # Creation of the discord client
 
 DiscordClient.CallCommand = "$zep "
 
+print("\n>>> Loading admin roles")
+
 try :
 
     DiscordClient.Admins = os.environ["ADMINS"].split(" ")
+    
+    print("\n>>> Admins gived")
 
 except :
+    
+    print("\n>>> No admins gived")
 
     DiscordClient.Admins = None
 
 DiscordClient.IsRunning = False
+
+print("\n>>> Loading message to watch")
 
 try :
 
@@ -48,21 +61,33 @@ try :
     DiscordClient.IsRunning = True
 
     on_reaction(Server)
+    
+    print("\n>>> Message loaded")
 
 except :
+    
+    print("\n>>> No message loaded")
 
     DiscordClient.Msg_Watch = None
+
+print("\n>>> Loading default channel")
 
 try :
     
     DiscordClient.DefaultChannel = DiscordClient.get_channel(os.environ["DEFAULT-CHANNEL"])
-
+    
+    print("\n>>> Default channel loaded")
+          
 except :
+          
+    print("\n>>> No default channel loaded")
 
     DiscordClient.DefaultChannel = None
 
 # Welcome image parameters
 
+print("\n>>> Loading default parameters")
+          
 DiscordClient.AvatarSize = 500
 DiscordClient.ContourRadius = 260
 DiscordClient.ContourColor = (239,210,66)
@@ -70,11 +95,19 @@ DiscordClient.TxtSize = 120
 DiscordClient.Padding = 360
 DiscordClient.MsgColor = (255,255,255)
 
+print("\n>>> Default parameters loaded")
+
+print("\n>>> Loading images")
+
 DiscordClient.Font = ImageFont.truetype("Font.ttf",DiscordClient.TxtSize)
 DiscordClient.Welcome = Image.open("Land.jpg")
 DiscordClient.Goodbye = Image.open("Grave.jpg")
 
+print("\n>>> Images loaded")
+
 #####################################################################################
+
+print("\n>>> Loading create_Welcome_Image function")
 
 def create_Welcome_Image () :
 
@@ -88,6 +121,12 @@ def create_Welcome_Image () :
     DiscordClient.DrawingHello = ImageDraw.Draw(DiscordClient.Welcome)    # Create a draw of the background
     DiscordClient.DrawingHello.ellipse(DiscordClient.CircleCenter, fill = DiscordClient.ContourColor, outline = "black", width = 5)   # Draw a circle on the background
 
+print("\n>>> create_Welcome_Image function loaded")
+
+#####################################################################################
+
+print("\n>>> Loading create_Goodbye_Image function")
+
 def create_Goodbye_Image () :
 
     DiscordClient.Mask = Image.new("L", (DiscordClient.AvatarSize,DiscordClient.AvatarSize), 0)   #Create an image mask for the avatar
@@ -100,11 +139,19 @@ def create_Goodbye_Image () :
     DiscordClient.DrawingBye = ImageDraw.Draw(DiscordClient.Goodbye)    # Create a draw of the background
     DiscordClient.DrawingBye.ellipse(DiscordClient.CircleCenter, fill = DiscordClient.ContourColor, outline = "black", width = 5)   # Draw a circle on the background
 
+print("\n>>> create_Goodbye_Image function loaded")
+
+print("\n>>> Creating default images")
+
 create_Welcome_Image()
 
 create_Goodbye_Image()
 
+print("\n>>> Default images created")
+
 #####################################################################################
+
+print("\n>>> Loading reload_Files function")
 
 def reload_Files () :
 
@@ -115,7 +162,11 @@ def reload_Files () :
     create_Welcome_Image()
     create_Goodbye_Image()
 
+print("\n>>> reload_Files function loaded")
+
 #####################################################################################
+
+print("\n>>> Loading send_Welcome function")
 
 async def send_Welcome (user) :
 
@@ -125,7 +176,11 @@ async def send_Welcome (user) :
 
     await DiscordClient.send_message(Target,Content)
 
+print("\n>>> send_Welcome function loaded")
+
 #####################################################################################
+
+print("\n>>> Loading send_Welcome_Image function")
 
 async def send_Welcome_Image (member,channel = None) :
 
@@ -165,7 +220,11 @@ async def send_Welcome_Image (member,channel = None) :
 
     reload_Files()
 
+print("\n>>> send_Welcome_Image function loaded")
+
 #####################################################################################
+
+print("\n>>> Loading send_Goodbye_Image function")
 
 async def send_Goodbye_Image (member,channel = None) :
 
@@ -205,23 +264,33 @@ async def send_Goodbye_Image (member,channel = None) :
 
     reload_Files()
 
+print("\n>>> send_Welcome_Image function loaded")
+
 #####################################################################################
 
 @DiscordClient.event    # Bot event
 
 async def on_ready () : # When bot starts
+    
+    print("\n>>> Bot starting")
 
     Name = "the world"    # Description showed on Discord
 
     State = discord.Game(name = Name,type = 3)  # Create a state instance
 
     await DiscordClient.change_presence(game = State)   # Change the bot status on Discord
+    
+    print("\n>>> Status changed")
+    
+    print("\n>>> Bot ready")
 
 #####################################################################################
 
 @DiscordClient.event    # Bot event
 
 async def on_member_join (member) : # When a new member join the server
+    
+    print("\n>>> A new member joined")
 
     try :   # Try to do the next line
 
@@ -238,6 +307,8 @@ async def on_member_join (member) : # When a new member join the server
 @DiscordClient.event    # Bot event
 
 async def on_member_remove (member) :   # When a member leaves the server
+    
+    print("\n>>> A new member leaved")
 
     try : # Try to do the next line
 
@@ -252,6 +323,8 @@ async def on_member_remove (member) :   # When a member leaves the server
 Last_Users = []
 
 async def on_reaction (server) :
+    
+    print("\n>>> On reaction loop")
 
     global Last_Users
 
@@ -330,6 +403,8 @@ async def on_message (message) :    # When a new message arrives
         return  # Exit the function
 
     if message.content.startswith(DiscordClient.CallCommand) :    # If the call command is detected on message
+        
+        print("\n>>> Command detected")
 
         Message = message.content[len(DiscordClient.CallCommand):]    # Get the area of interest on the message
 
@@ -628,12 +703,12 @@ async def on_message (message) :    # When a new message arrives
                 await DiscordClient.send_message(message.channel,">>> Command format : \n```css\n[set_admins {role1} {role2} ...]\n```")
 
             else :
+                
+                os.environ["ADMINS"] = Params
 
                 Params = Params.split(" ")
 
                 DiscordClient.Admins = Params
-
-                os.environ["ADMINS"] = Params
 
         #######################################################################################################
 
