@@ -55,12 +55,6 @@ try :
     Msg = DiscordClient.get_message(Channel, Infos[1])
 
     DiscordClient.Msg_Watch = Msg
-
-    Server = DiscordClient.get_guild("591314616647417868")
-
-    DiscordClient.IsRunning = True
-
-    on_reaction(Server)
     
     print("\n>>> Message loaded")
 
@@ -281,6 +275,12 @@ async def on_ready () : # When bot starts
     await DiscordClient.change_presence(game = State)   # Change the bot status on Discord
     
     print("\n>>> Status changed")
+    
+    Server = DiscordClient.get_guild(591314616647417868)
+
+    DiscordClient.IsRunning = True
+
+    on_reaction(Server)
     
     print("\n>>> Bot ready")
 
