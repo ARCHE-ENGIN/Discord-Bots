@@ -280,7 +280,7 @@ async def on_ready () : # When bot starts
 
     DiscordClient.IsRunning = True
 
-    on_reaction(Server)
+    await on_reaction(Server)
     
     print("\n>>> Bot ready")
 
