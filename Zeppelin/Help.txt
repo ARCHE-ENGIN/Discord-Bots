@@ -1,4 +1,0 @@
-To make the bot online, you need :
-- a procfile : this file show to heroku the script to run and with the type of langage (here python).
-- a requirements file : if non-native modules are used in the script you need to say the modules to download (here you're obligated to because discord.py is not a native module).
-- a runtime file : this file is not necessary but if the bot is running on a specific version of python you need it.
