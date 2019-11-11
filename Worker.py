@@ -581,15 +581,11 @@ async def on_message (message) :    # When a new message arrives
 
                     if msg.id == Msg.id :
 
-                        print("Found :")
-
                         DiscordClient.Msg_Watch = msg
-
-                        print(DiscordClient.Msg_Watch)
 
                         break
 
-                os.environ["MSG"] = Params.split()
+                os.environ["MSG"] = Params
 
                 DiscordClient.IsRunning = False
 
